@@ -1,50 +1,92 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.4.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
 }
 
 group = 'com.country'
-version = '0.0.1-SNAPSHOT'
+version = '0.14.0-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    maven { url "https://nexus.efbet.tech/repository/maven-public/" }
+    maven { url "https://nexus.efbet.tech/repository/jcenter/" }
+    maven { url "https://nexus.efbet.tech/repository/maven-releases/" }
+    maven { url "https://nexus.efbet.tech/repository/maven-snapshots/" }
 }
+
+//repositories {
+//    mavenCentral()
+//}
 
 dependencies {
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-//	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter'
-	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+    // Spring
 
-	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
-	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.4.0'
-	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.4.0'
-	compile group: 'mysql', name: 'mysql-connector-java'
-	compile 'com.h2database:h2:1.4.191'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.retry:spring-retry"
+//    implementation "org.springframework.security.oauth:spring-security-oauth2"
+    // DB
+//    implementation "org.postgresql:postgresql"
 
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-	compile group: 'io.micrometer', name: 'micrometer-registry-prometheus'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    // Swagger
+    implementation "io.springfox:springfox-swagger2:2.9.2"
+    implementation "io.springfox:springfox-swagger-ui:2.9.2"
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'org.springframework.security:spring-security-test'
+    // Jackson
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.10.3"
+    // JSR 310: Date and Time API (Java 8 Jackson serilization / deserilization)
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.3"
+    // openAPI jackson extension (used by code generation)
+    implementation "org.openapitools:jackson-databind-nullable:0.2.1"
 
 
-//	runtimeOnly 'com.h2database:h2'
+    // JPA model mapping
+//    implementation "org.modelmapper:modelmapper"
+
+    implementation "com.google.code.gson:gson:2.8.6"
+
+    // Lombok
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+
+    // Tests
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation "org.junit.platform:junit-platform-commons"
+    testImplementation "org.mockito:mockito-core"
+
+    implementation 'com.h2database:h2:1.4.191'
 
 
 }
 
-test {
-	useJUnitPlatform()
-}
+//buildServerCode {
+//    inputSpec = "$projectDir/spec/country-tour-service.yml".toString()
+//    outputDir = "$buildDir/generated/server".toString()
+//    apiPackage = "com.country.tour.api"
+//    modelPackage = "com.country.tour.api.model"
+//
+//    configOptions['basePackage'] = "com.country.tour"
+//    configOptions['configPackage'] = "com.country.tour.config"
+//}
+//
+//compileJava {
+//    dependsOn(tasks.buildServerCode)
+//}
+
+//test {
+//    useJUnitPlatform()
+//}

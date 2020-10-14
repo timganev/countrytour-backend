@@ -26,21 +26,21 @@ public class UpdateTask {
   }
 
   //  @Scheduled(cron = "0 10 3 * * *") // every day at 03:10 AM
-  @Scheduled(cron = "* * * * * *") // update at start
-  private void ScheduledUpdateRates() {
-    if (update) {
-      update = false;
-      try {
-        final String uri = "https://api.exchangeratesapi.io/latest";
-        RestTemplate restTemplate = new RestTemplate();
-        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
-        rateService.saveRates(result);
-      } catch (Exception ex) {
-        log.error("Failed to update due to: {}", ex);
-      }
-    }
-
-  }
+//  @Scheduled(cron = "* * * * * *") // update at start
+//  private void ScheduledUpdateRates() {
+//    if (update) {
+//      update = false;
+//      try {
+//        final String uri = "https://api.exchangeratesapi.io/latest";
+//        RestTemplate restTemplate = new RestTemplate();
+//        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
+//        rateService.saveRates(result);
+//      } catch (Exception ex) {
+//        log.error("Failed to update due to: {}", ex);
+//      }
+//    }
+//
+//  }
 
 
 }

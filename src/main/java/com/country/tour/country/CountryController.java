@@ -1,12 +1,10 @@
 package com.country.tour.country;
 
 
-import com.country.tour.rate.RateRepository;
 import com.country.tour.rate.RateEntity;
+import com.country.tour.rate.RateRepository;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,23 +40,10 @@ public class CountryController {
 
   @PostMapping
   public ResponseEntity<List<CountryDTO>> saveAll(@RequestBody List<CountryDTO> request) {
-    List<CountryDTO> result = new ArrayList<>();
-    List<RateEntity> fxList = rateRepository.findAll();
+//    List<CountryDTO> result = new ArrayList<>();
+//    List<RateEntity> fxList = rateRepository.findAll();
 
-    Map<String, Double> fxmap = new HashMap<>();
-    fxList.forEach(fx -> {
-      fxmap.put(fx.getCode(), fx.getRate());
-    });
-
-    request.forEach(v -> {
-
-          if (!fxmap.containsKey(v.getCurrency())) {
-            v.setCurrency("EUR");
-            result.add(v);
-          }
-        }
-
-    );
+    countryService.saveCountries(request);
 
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(request);

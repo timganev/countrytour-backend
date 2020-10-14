@@ -14,6 +14,7 @@ public class CountryDTO {
   private String country;
   private String capital;
   private String currency;
+  private Double rate;
   private List<String> neighbours = new ArrayList<>();
 
 }

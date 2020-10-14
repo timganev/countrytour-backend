@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,14 +31,22 @@ public class CountryController {
     return countryRepository.findAll();
   }
 
-//  @PostMapping
-//  public ResponseEntity<Void> saveAll(@RequestBody List<CountryDTO> request) {
-//    countryService.saveCountries(request);
-//    return new ResponseEntity<>(HttpStatus.OK);
-//    }
+
+  @GetMapping("/{code}")
+  public ResponseEntity<CountryDTO> calculateTour(@PathVariable("code") String code) {
+
+    if (countryRepository.existsById(code)) {
+      CountryDTO result = countryService.calculateTour(code);
+      return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+          .body(result);
+    } else  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+  }
+
 
   @PostMapping
-  public ResponseEntity<List<CountryDTO>> initialSaveCoutries(@RequestBody List<CountryDTO> request) {
+  public ResponseEntity<List<CountryDTO>> initialSaveCountries(
+      @RequestBody List<CountryDTO> request) {
     countryService.initialSaveCoutries(request);
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(request);

@@ -1,7 +1,5 @@
 package com.country.tour.country;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

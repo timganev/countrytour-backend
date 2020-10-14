@@ -2,6 +2,7 @@ package com.country.tour.country;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ public class CountryService {
   private CountryRepository countryRepository;
 
 
-
   public void initialSaveCoutries(List<CountryDTO> request) {
     modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     List<CountryEntity> entities = new ArrayList<>();
@@ -28,5 +28,15 @@ public class CountryService {
 
     countryRepository.saveAll(entities);
 
+  }
+
+  public CountryDTO calculateTour(String code) {
+    Optional<CountryEntity> entityOptional = countryRepository.findById(code);
+    if (entityOptional.isPresent()) {
+      modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+      CountryDTO dto = modelMapper.map(entityOptional.get(), CountryDTO.class);
+      return dto;
+    }
+    return null;
   }
 }

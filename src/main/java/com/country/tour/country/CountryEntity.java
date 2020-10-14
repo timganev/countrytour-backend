@@ -1,10 +1,7 @@
 package com.country.tour.country;
 
 import java.time.LocalDateTime;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,12 +34,8 @@ public class CountryEntity {
   @UpdateTimestamp
   private LocalDateTime updatedOn;
 
-  public CountryEntity() {}
-
-//  public CountryEntity(String code) {
-//    super();
-//    this.code = code;
-//  }
+  public CountryEntity() {
+  }
 
 
 }

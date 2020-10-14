@@ -1,4 +1,4 @@
-package com.country.tour.fx;
+package com.country.tour.rate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
 package com.country.tour.country;
 
 
-import com.country.tour.fx.RateRepository;
-import com.country.tour.fx.RateEntity;
+import com.country.tour.rate.RateRepository;
+import com.country.tour.rate.RateEntity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

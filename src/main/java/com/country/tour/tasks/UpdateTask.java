@@ -1,8 +1,8 @@
 package com.country.tour.tasks;
 
-import com.country.tour.fx.RateRepository;
-import com.country.tour.fx.RateService;
-import com.country.tour.fx.RatesDTO;
+import com.country.tour.rate.RateRepository;
+import com.country.tour.rate.RateService;
+import com.country.tour.rate.RatesDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

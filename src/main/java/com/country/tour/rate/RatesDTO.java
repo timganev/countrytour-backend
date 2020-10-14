@@ -1,8 +1,6 @@
-package com.country.tour.fx;
+package com.country.tour.rate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

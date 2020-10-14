@@ -26,7 +26,7 @@ public class UpdateTask {
   }
 
   //  @Scheduled(cron = "0 10 3 * * *") // every day at 03:10 AM
-  @Scheduled(cron = "0 * * * * *")
+  @Scheduled(cron = "* * * * * *") // update at start
   private void ScheduledUpdateRates() {
     if (update) {
       update = false;

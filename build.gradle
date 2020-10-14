@@ -1,14 +1,22 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.4.RELEASE'
+//    id 'org.openapi.generator' version "4.3.1"
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
 
 group = 'com.country'
 version = '0.14.0-SNAPSHOT'
-sourceCompatibility = '11'
+//sourceCompatibility = '13'
+//targetCompatibility = '13'
+
+
 
 configurations {
+    globalPlatforms {
+        canBeResolved = false
+        canBeConsumed = false
+    }
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -19,8 +27,10 @@ repositories {
 }
 
 dependencies {
+    globalPlatforms platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+
     // Spring
-    implementation 'org.springframework.boot:spring-boot-starter'
+//    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
@@ -28,6 +38,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.retry:spring-retry"
 //    implementation "org.springframework.security.oauth:spring-security-oauth2"
+
     //     DB
     implementation "org.postgresql:postgresql"
     implementation 'com.h2database:h2:1.4.191'
@@ -35,6 +46,14 @@ dependencies {
     // Swagger
     implementation "io.springfox:springfox-swagger2:2.9.2"
     implementation "io.springfox:springfox-swagger-ui:2.9.2"
+    implementation "io.springfox:springfox-bean-validators:2.9.2"
+    implementation "io.swagger:swagger-annotations:1.6.0"
+//    implementation "org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE"
+
+
+
+
+
 
     // Jackson
     implementation "com.fasterxml.jackson.core:jackson-databind:2.10.3"

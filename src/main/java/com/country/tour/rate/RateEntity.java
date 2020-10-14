@@ -11,12 +11,9 @@ import lombok.Data;
 public class RateEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
   private String code;
   private Double rate;
-//  private String base;
-//  private Long timestamp;
+
 
   public RateEntity() {}
 

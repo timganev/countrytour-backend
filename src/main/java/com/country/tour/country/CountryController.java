@@ -1,9 +1,7 @@
 package com.country.tour.country;
 
 
-import com.country.tour.rate.RateEntity;
 import com.country.tour.rate.RateRepository;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,12 +37,8 @@ public class CountryController {
 //    }
 
   @PostMapping
-  public ResponseEntity<List<CountryDTO>> saveAll(@RequestBody List<CountryDTO> request) {
-//    List<CountryDTO> result = new ArrayList<>();
-//    List<RateEntity> fxList = rateRepository.findAll();
-
-    countryService.saveCountries(request);
-
+  public ResponseEntity<List<CountryDTO>> initialSaveCoutries(@RequestBody List<CountryDTO> request) {
+    countryService.initialSaveCoutries(request);
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(request);
   }

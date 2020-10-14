@@ -22,8 +22,8 @@ public class TourApplication {
   CommandLineRunner runner(CountryRepository userRepository) throws IOException {
 
     return args -> {
-      userRepository.save(new CountryEntity("BG"));
-      userRepository.save(new CountryEntity("UK"));
+//      userRepository.save(new CountryEntity("BG"));
+//      userRepository.save(new CountryEntity("UK"));
 
     };
   }

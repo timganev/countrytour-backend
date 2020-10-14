@@ -1,5 +1,7 @@
 package com.country.tour.tasks;
 
+import com.country.tour.fx.RateRepository;
+import com.country.tour.fx.RateService;
 import com.country.tour.fx.RatesDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +14,32 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class UpdateTask {
 
+  private RateService rateService;
+  private RateRepository rateRepository;
+  private static Boolean update = true;
+
   @Autowired
-  public UpdateTask() {
+  public UpdateTask(RateService rateService, RateRepository rateRepository) {
     super();
+    this.rateService = rateService;
+    this.rateRepository = rateRepository;
   }
 
   //  @Scheduled(cron = "0 10 3 * * *") // every day at 03:10 AM
-  @Scheduled(cron = "10 * * * * *")
-  private void ScheduledUpdateCoinRanks() {
-    try {
-      final String uri = "https://api.exchangeratesapi.io/latest";
-      RestTemplate restTemplate = new RestTemplate();
-      RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
-    } catch (Exception ex) {
-      log.error("Failed to update due to: {}", ex);
+  @Scheduled(cron = "0 * * * * *")
+  private void ScheduledUpdateRates() {
+    if (update) {
+      update = false;
+      try {
+        final String uri = "https://api.exchangeratesapi.io/latest";
+        RestTemplate restTemplate = new RestTemplate();
+        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
+        rateService.saveRates(result);
+      } catch (Exception ex) {
+        log.error("Failed to update due to: {}", ex);
+      }
     }
+
   }
 
 

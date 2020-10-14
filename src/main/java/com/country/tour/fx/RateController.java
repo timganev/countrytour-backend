@@ -1,7 +1,6 @@
 package com.country.tour.fx;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,35 +14,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/fx")
-public class FxController {
+public class RateController {
 
   @Autowired
-  private FxRepository fxRepository;
+  private RateRepository rateRepository;
 
+  @Autowired
+  private RateService rateService;
 
 //TODO get rates  http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef
 
 
   @GetMapping
-  public Iterable<FxEntity> getAll() {
-    return fxRepository.findAll();
+  public Iterable<RateEntity> getAll() {
+    return rateRepository.findAll();
   }
 
   @PostMapping
-  public ResponseEntity<List<FxEntity>> saveAll(@RequestBody RatesDTO request) {
+  public ResponseEntity<List<RateEntity>> saveAll(@RequestBody RatesDTO request) {
 
-    List<FxEntity> list = new ArrayList<>();
-
-    request.getRates().forEach((k,v) ->{
-      FxEntity entity = new FxEntity(k,v);
-      list.add(entity);
-    });
-    fxRepository.saveAll(list);
+    List<RateEntity> list = rateService.saveRates(request);
 
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(list);
   }
-
 
 
 

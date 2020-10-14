@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class FxEntity {
+public class RateEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,9 +18,9 @@ public class FxEntity {
 //  private String base;
 //  private Long timestamp;
 
-  public FxEntity() {}
+  public RateEntity() {}
 
-  public FxEntity(String code, Double rate) {
+  public RateEntity(String code, Double rate) {
     super();
     this.code = code;
     this.rate = rate;

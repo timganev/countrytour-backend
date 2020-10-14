@@ -1,8 +1,8 @@
 package com.country.tour.country;
 
 
-import com.country.tour.fx.FxRepository;
-import com.country.tour.fx.FxEntity;
+import com.country.tour.fx.RateRepository;
+import com.country.tour.fx.RateEntity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +27,7 @@ public class CountryController {
   CountryService countryService;
 
   @Autowired
-  private FxRepository fxRepository;
+  private RateRepository rateRepository;
 
   @GetMapping
   public Iterable<CountryEntity> getAll() {
@@ -43,7 +43,7 @@ public class CountryController {
   @PostMapping
   public ResponseEntity<List<CountryDTO>> saveAll(@RequestBody List<CountryDTO> request) {
     List<CountryDTO> result = new ArrayList<>();
-    List<FxEntity> fxList = fxRepository.findAll();
+    List<RateEntity> fxList = rateRepository.findAll();
 
     Map<String, Double> fxmap = new HashMap<>();
     fxList.forEach(fx -> {

@@ -15,10 +15,7 @@ configurations {
 }
 
 repositories {
-    maven { url "https://nexus.efbet.tech/repository/maven-public/" }
-    maven { url "https://nexus.efbet.tech/repository/jcenter/" }
-    maven { url "https://nexus.efbet.tech/repository/maven-releases/" }
-    maven { url "https://nexus.efbet.tech/repository/maven-snapshots/" }
+    mavenCentral()
 }
 
 //repositories {

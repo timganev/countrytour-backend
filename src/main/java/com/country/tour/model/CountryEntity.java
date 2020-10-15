@@ -7,15 +7,11 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-//@Data
+@Data
 @Entity
 public class CountryEntity {
 
   @Id
-//  @GeneratedValue(strategy = GenerationType.AUTO)
-//  private Long id;
-//
-//  @Column(unique=true)
   private String code;
 
   private String country;
@@ -28,16 +24,13 @@ public class CountryEntity {
 
   private String neighbours;
 
-  @CreationTimestamp
-  private LocalDateTime createdOn;
+//  @CreationTimestamp
+//  private LocalDateTime createdOn;
 
   @UpdateTimestamp
   private LocalDateTime updatedOn;
 
   public CountryEntity() {
-  }
-  public CountryEntity(String code) {
-    this.code=code;
   }
 
   public CountryEntity(String code, String country, String capital, String currency,

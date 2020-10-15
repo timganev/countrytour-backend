@@ -1,13 +1,16 @@
 package com.country.tour.tasks;
 
 import com.country.tour.model.RateRepository;
+import com.country.tour.model.RatesDTO;
 import com.country.tour.service.RateService;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 
 @Component
@@ -30,21 +33,34 @@ public class UpdateTask {
 
 
   //  @Scheduled(cron = "0 10 3 * * *") // every day at 03:10 AM
-//  @Scheduled(cron = "* * * * * *") // update at start
-//  private void ScheduledUpdateRates() {
-//    if (update) {
-//      update = false;
-//      try {
-//        final String uri = "https://api.exchangeratesapi.io/latest";
-//        RestTemplate restTemplate = new RestTemplate();
-//        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
-//        rateService.saveRates(result);
-//      } catch (Exception ex) {
-//        log.error("Failed to update due to: {}", ex);
-//      }
-//    }
-//
-//  }
+  @Scheduled(cron = "1 * * * * *") // update at start
+  private void StartUpdateRates() {
+    if (update) {
+      update = false;
+      try {
+        final String uri = "https://api.exchangeratesapi.io/latest";
+        RestTemplate restTemplate = new RestTemplate();
+        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
+        rateService.saveRates(result);
+      } catch (Exception ex) {
+        log.error("Failed to update due to: {}", ex);
+      }
+    }
+
+  }
+
+  // get rates  http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef
+    @Scheduled(cron = "0 0 3 * * *") // every day at 03:00 AM
+  private void ScheduledUpdateRates() {
+      try {
+        final String uri = "http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef";
+        RestTemplate restTemplate = new RestTemplate();
+        RatesDTO result = restTemplate.getForObject(uri, RatesDTO.class);
+        rateService.saveRates(result);
+      } catch (Exception ex) {
+        log.error("Failed to update due to: {}", ex);
+      }
+  }
 
 
 }

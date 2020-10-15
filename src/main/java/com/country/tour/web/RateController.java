@@ -31,7 +31,7 @@ public class RateController {
     this.rateService = rateService;
   }
 
-  //TODO get rates  http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef
+
 
 
   @GetMapping

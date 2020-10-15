@@ -14,12 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CountryService {
 
-  @Autowired
+
   private ModelMapper modelMapper;
 
-  @Autowired
   private CountryRepository countryRepository;
 
+  @Autowired
+  public CountryService(ModelMapper modelMapper,
+      CountryRepository countryRepository) {
+    this.modelMapper = modelMapper;
+    this.countryRepository = countryRepository;
+  }
 
   public void initialSaveCoutries(List<CountryDTO> request) {
     modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

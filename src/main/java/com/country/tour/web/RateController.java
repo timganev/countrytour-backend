@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/fx")
 public class RateController {
 
-  @Autowired
   private RateRepository rateRepository;
 
-  @Autowired
   private RateService rateService;
 
-//TODO get rates  http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef
+  @Autowired
+  public RateController(RateRepository rateRepository,
+      RateService rateService) {
+    this.rateRepository = rateRepository;
+    this.rateService = rateService;
+  }
+
+  //TODO get rates  http://data.fixer.io/api/latest?access_key=62a07267d78d80b5c5cc109268183aef
 
 
   @GetMapping

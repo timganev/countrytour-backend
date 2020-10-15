@@ -4,8 +4,8 @@ package com.country.tour.web;
 import com.country.tour.model.CountryDTO;
 import com.country.tour.model.CountryEntity;
 import com.country.tour.model.CountryRepository;
-import com.country.tour.service.CountryService;
 import com.country.tour.model.RateRepository;
+import com.country.tour.service.CountryService;
 import com.country.tour.service.ValidationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/countries")
 public class CountryController {
 
-  @Autowired
+
   private CountryRepository countryRepository;
-  @Autowired
-  CountryService countryService;
 
-  @Autowired
-  ValidationService validationService;
+  private CountryService countryService;
 
-  @Autowired
+  private ValidationService validationService;
+
   private RateRepository rateRepository;
+
+  @Autowired
+  public CountryController(CountryRepository countryRepository,
+      CountryService countryService, ValidationService validationService,
+      RateRepository rateRepository) {
+    this.countryRepository = countryRepository;
+    this.countryService = countryService;
+    this.validationService = validationService;
+    this.rateRepository = rateRepository;
+  }
 
   @GetMapping
   public Iterable<CountryEntity> getAll() {
@@ -42,10 +50,8 @@ public class CountryController {
 
   @GetMapping("calculate")
   public ResponseEntity<CountryDTO> calculateTour
-      (@RequestParam String country,
-          @RequestParam Double budget,
-          @RequestParam Double budgetcountry,
-          @RequestParam String currency) {
+      (@RequestParam String country, @RequestParam Double budget,
+          @RequestParam Double budgetcountry, @RequestParam String currency) {
 
     Boolean isValid = validationService.validateTour(country, budget, budgetcountry, currency);
 

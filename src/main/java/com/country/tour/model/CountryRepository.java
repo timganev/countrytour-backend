@@ -1,7 +1,6 @@
 package com.country.tour.model;
 
 
-import com.country.tour.model.CountryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

@@ -1,7 +1,6 @@
 package com.country.tour;
 
-import com.country.tour.country.CountryEntity;
-import com.country.tour.country.CountryRepository;
+import com.country.tour.model.CountryRepository;
 import java.io.IOException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

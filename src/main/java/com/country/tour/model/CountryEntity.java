@@ -1,4 +1,4 @@
-package com.country.tour.country;
+package com.country.tour.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.country.tour.country;
+package com.country.tour.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

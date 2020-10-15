@@ -1,13 +1,10 @@
 package com.country.tour.tasks;
 
-import com.country.tour.rate.RateRepository;
-import com.country.tour.rate.RateService;
-import com.country.tour.rate.RatesDTO;
+import com.country.tour.model.RateRepository;
+import com.country.tour.service.RateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 
 @Component

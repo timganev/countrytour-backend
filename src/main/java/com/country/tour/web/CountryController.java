@@ -1,17 +1,22 @@
-package com.country.tour.country;
+package com.country.tour.web;
 
 
-import com.country.tour.rate.RateRepository;
+import com.country.tour.model.CountryDTO;
+import com.country.tour.model.CountryEntity;
+import com.country.tour.model.CountryRepository;
+import com.country.tour.service.CountryService;
+import com.country.tour.model.RateRepository;
+import com.country.tour.service.ValidationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,6 +29,9 @@ public class CountryController {
   CountryService countryService;
 
   @Autowired
+  ValidationService validationService;
+
+  @Autowired
   private RateRepository rateRepository;
 
   @GetMapping
@@ -32,14 +40,22 @@ public class CountryController {
   }
 
 
-  @GetMapping("/{code}")
-  public ResponseEntity<CountryDTO> calculateTour(@PathVariable("code") String code) {
+  @GetMapping("calculate")
+  public ResponseEntity<CountryDTO> calculateTour
+      (@RequestParam String country,
+          @RequestParam Double budget,
+          @RequestParam Double budgetcountry,
+          @RequestParam String currency) {
 
-    if (countryRepository.existsById(code)) {
-      CountryDTO result = countryService.calculateTour(code);
+    Boolean isValid = validationService.validateTour(country, budget, budgetcountry, currency);
+
+    if (isValid) {
+      CountryDTO result = countryService.calculateTour(country);
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
           .body(result);
-    } else  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    } else {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
   }
 

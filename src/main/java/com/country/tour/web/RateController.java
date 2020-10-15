@@ -1,6 +1,10 @@
-package com.country.tour.rate;
+package com.country.tour.web;
 
 
+import com.country.tour.model.RateEntity;
+import com.country.tour.model.RateRepository;
+import com.country.tour.service.RateService;
+import com.country.tour.model.RatesDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

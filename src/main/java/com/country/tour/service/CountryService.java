@@ -51,9 +51,10 @@ public class CountryService {
 
       List<String> neighbours = Arrays.asList(countryDTO.getNeighbours().split(","));
 
-      Double budgetCountry = tourResponceDTO.getBudgetCountry();
-      Double budgetTour = neighbours.size() * budgetCountry;
-      Double budget = tourResponceDTO.getBudget();
+      Double budgetCtr = Math.round((tourResponceDTO.getBudgetCountry()) * 100.0) / 100.0;
+      Double budgetTour = Math.round((neighbours.size() * budgetCtr) * 100.0) / 100.0;
+      Double budget = Math.round((tourResponceDTO.getBudget()) * 100.0) / 100.0;
+      Integer tours = (int) (budget / budgetTour);
 
       neighbours.forEach(code -> {
         Optional<CountryEntity> optional = countryRepository.findById(code);
@@ -61,13 +62,15 @@ public class CountryService {
           CountryEntity entity = optional.get();
           CountryResponceDTO countryResponceDTO = modelMapper.map(entity, CountryResponceDTO.class);
           countryResponceDTO
-              .setBudgetCountry(budgetCountry * countryResponceDTO.getRate());
+              .setBudgetCountry(
+                  Math.round((budgetCtr * tours * countryResponceDTO.getRate()) * 100.0) / 100.0);
           tourResponceDTO.getNeighbours().put(code, countryResponceDTO);
         });
       });
 
+      tourResponceDTO.setBudgetCountry(budgetCtr);
       tourResponceDTO.setBudgetTour(budgetTour);
-      tourResponceDTO.setNumberTours((int) (budget / budgetTour));
+      tourResponceDTO.setNumberTours(tours);
       tourResponceDTO.setLeftover(budget - budgetTour * tourResponceDTO.getNumberTours());
       return tourResponceDTO;
     }

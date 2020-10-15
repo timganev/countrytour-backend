@@ -7,7 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Data
+//@Data
 @Entity
 public class CountryEntity {
 
@@ -35,6 +35,19 @@ public class CountryEntity {
   private LocalDateTime updatedOn;
 
   public CountryEntity() {
+  }
+  public CountryEntity(String code) {
+    this.code=code;
+  }
+
+  public CountryEntity(String code, String country, String capital, String currency,
+      Double rate, String neighbours) {
+    this.code = code;
+    this.country = country;
+    this.capital = capital;
+    this.currency = currency;
+    this.rate = rate;
+    this.neighbours = neighbours;
   }
 
 

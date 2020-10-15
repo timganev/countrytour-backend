@@ -12,20 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class TourApplication {
 
-
   public static void main(String[] args) {
     SpringApplication.run(TourApplication.class, args);
   }
-
-  @Bean
-  CommandLineRunner runner(CountryRepository userRepository) throws IOException {
-
-    return args -> {
-//      userRepository.save(new CountryEntity("BG"));
-//      userRepository.save(new CountryEntity("UK"));
-
-    };
-  }
-
 
 }

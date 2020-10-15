@@ -7,7 +7,9 @@ import com.country.tour.model.CountryRepository;
 import com.country.tour.model.RateRepository;
 import com.country.tour.service.CountryService;
 import com.country.tour.service.ValidationService;
+import java.io.IOException;
 import java.util.List;
+import net.minidev.json.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/countries")
@@ -51,7 +54,8 @@ public class CountryController {
   @GetMapping("calculate")
   public ResponseEntity<CountryDTO> calculateTour
       (@RequestParam String country, @RequestParam Double budget,
-          @RequestParam Double budgetcountry, @RequestParam String currency) {
+          @RequestParam Double budgetcountry, @RequestParam String currency)
+      throws IOException, ParseException {
 
     Boolean isValid = validationService.validateTour(country, budget, budgetcountry, currency);
 

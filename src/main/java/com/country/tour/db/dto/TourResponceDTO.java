@@ -13,15 +13,17 @@ public class TourResponceDTO {
 
   private String code;
 
+  private String currency;
+
   private Double budget;
 
   private Double budgetCountry;
 
-  private String currency;
-
-  private Double leftover;
+  private Double budgetTour;
 
   private Integer numberTours;
+
+  private Double leftover;
 
   private Map<String, CountryResponceDTO> neighbours = new HashMap<>();
 

@@ -1,6 +1,7 @@
 package com.country.tour.service;
 
 import com.country.tour.db.dto.CountryDTO;
+import com.country.tour.db.dto.CountryResponceDTO;
 import com.country.tour.db.dto.TourRequestDTO;
 import com.country.tour.db.dto.TourResponceDTO;
 import com.country.tour.db.model.CountryEntity;
@@ -43,12 +44,31 @@ public class CountryService {
   public TourResponceDTO calculateTour(TourRequestDTO request) {
     Optional<CountryEntity> entityOptional = countryRepository.findById(request.getCode());
     if (entityOptional.isPresent()) {
+
       modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
       CountryDTO countryDTO = modelMapper.map(entityOptional.get(), CountryDTO.class);
       TourResponceDTO tourResponceDTO = modelMapper.map(request, TourResponceDTO.class);
 
-      List<String> items = Arrays.asList(countryDTO.getNeighbours().split(","));
+      List<String> neighbours = Arrays.asList(countryDTO.getNeighbours().split(","));
 
+      Double budgetCountry = tourResponceDTO.getBudgetCountry();
+      Double budgetTour = neighbours.size() * budgetCountry;
+      Double budget = tourResponceDTO.getBudget();
+
+      neighbours.forEach(code -> {
+        Optional<CountryEntity> optional = countryRepository.findById(code);
+        optional.ifPresent(theUser -> {
+          CountryEntity entity = optional.get();
+          CountryResponceDTO countryResponceDTO = modelMapper.map(entity, CountryResponceDTO.class);
+          countryResponceDTO
+              .setBudgetCountry(budgetCountry * countryResponceDTO.getRate());
+          tourResponceDTO.getNeighbours().put(code, countryResponceDTO);
+        });
+      });
+
+      tourResponceDTO.setBudgetTour(budgetTour);
+      tourResponceDTO.setNumberTours((int) (budget / budgetTour));
+      tourResponceDTO.setLeftover(budget - budgetTour * tourResponceDTO.getNumberTours());
       return tourResponceDTO;
     }
     return null;

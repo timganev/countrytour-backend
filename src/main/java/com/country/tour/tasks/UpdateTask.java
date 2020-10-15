@@ -1,9 +1,8 @@
 package com.country.tour.tasks;
 
-import com.country.tour.model.RateRepository;
-import com.country.tour.model.RatesDTO;
+import com.country.tour.db.model.RateRepository;
+import com.country.tour.db.dto.RatesDTO;
 import com.country.tour.service.RateService;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

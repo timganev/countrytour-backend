@@ -1,9 +1,9 @@
 package com.country.tour.config;
 
-import com.country.tour.model.CountryEntity;
-import com.country.tour.model.CountryRepository;
-import com.country.tour.model.RateEntity;
-import com.country.tour.model.RateRepository;
+import com.country.tour.db.model.CountryEntity;
+import com.country.tour.db.model.CountryRepository;
+import com.country.tour.db.model.RateEntity;
+import com.country.tour.db.model.RateRepository;
 import java.io.IOException;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;

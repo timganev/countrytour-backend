@@ -1,10 +1,11 @@
-package com.country.tour.model;
+package com.country.tour.db.model;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface RateRepository extends JpaRepository<RateEntity, String> {
+public interface CountryRepository extends JpaRepository<CountryEntity, String> {
+
 
 }

@@ -1,4 +1,4 @@
-package com.country.tour.model;
+package com.country.tour.db.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,10 +9,15 @@ import lombok.EqualsAndHashCode;
 public class CountryDTO {
 
   private String code;
+
   private String country;
+
   private String capital;
+
   private String currency;
+
   private Double rate;
+
   private String neighbours;
 
 }

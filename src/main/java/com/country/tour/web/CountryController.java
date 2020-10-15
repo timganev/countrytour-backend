@@ -1,15 +1,15 @@
 package com.country.tour.web;
 
 
-import com.country.tour.model.CountryDTO;
-import com.country.tour.model.CountryEntity;
-import com.country.tour.model.CountryRepository;
-import com.country.tour.model.RateRepository;
+import com.country.tour.db.dto.CountryDTO;
+import com.country.tour.db.dto.TourRequestDTO;
+import com.country.tour.db.dto.TourResponceDTO;
+import com.country.tour.db.model.CountryEntity;
+import com.country.tour.db.model.CountryRepository;
+import com.country.tour.db.model.RateRepository;
 import com.country.tour.service.CountryService;
 import com.country.tour.service.ValidationService;
-import java.io.IOException;
 import java.util.List;
-import net.minidev.json.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -52,15 +51,14 @@ public class CountryController {
 
 
   @GetMapping("calculate")
-  public ResponseEntity<CountryDTO> calculateTour
-      (@RequestParam String country, @RequestParam Double budget,
-          @RequestParam Double budgetcountry, @RequestParam String currency)
-      throws IOException, ParseException {
+  public ResponseEntity<TourResponceDTO> calculateTour
+      (@RequestBody TourRequestDTO request) {
 
-    Boolean isValid = validationService.validateTour(country, budget, budgetcountry, currency);
+    Boolean isValid = validationService.validateTour(request);
 
     if (isValid) {
-      CountryDTO result = countryService.calculateTour(country);
+
+      TourResponceDTO result = countryService.calculateTour(request);
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
           .body(result);
     } else {

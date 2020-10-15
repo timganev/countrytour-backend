@@ -1,10 +1,9 @@
-package com.country.tour.model;
+package com.country.tour.db.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Data

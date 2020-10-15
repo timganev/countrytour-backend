@@ -1,8 +1,8 @@
 package com.country.tour.service;
 
-import com.country.tour.model.CountryRepository;
-import com.country.tour.model.RateRepository;
-import java.util.regex.Matcher;
+import com.country.tour.db.dto.TourRequestDTO;
+import com.country.tour.db.model.CountryRepository;
+import com.country.tour.db.model.RateRepository;
 import java.util.regex.Pattern;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +28,18 @@ public class ValidationService {
   }
 
 
-  public Boolean validateTour(String country, Double budget, Double budgetcountry, String currency) {
-    if (!countryRepository.existsById(country)) {
+  public Boolean validateTour(TourRequestDTO request) {
+    if (!countryRepository.existsById(request.getCode())) {
       return false;
     }
-    if (!isPositiveNumber(String.valueOf(budget))) {
+    if (!isPositiveNumber(String.valueOf(request.getBudget()))) {
       return false;
     }
-    if (!isPositiveNumber(String.valueOf(budgetcountry))) {
+    if (!isPositiveNumber(String.valueOf(request.getBudgetCountry()))) {
       return false;
     }
-//    if (!rateRepository.existsById(currency)) {
+
+//    if (!rateRepository.existsById(request.getCurrency())) {
 //      return false;
 //    }
 
@@ -56,6 +57,7 @@ public class ValidationService {
     }
     return true;
   }
+
 
 
 }

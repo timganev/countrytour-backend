@@ -16,4 +16,10 @@ public class TourRequestDTO {
 
   private String currency;
 
+  public TourRequestDTO(String code, Double budget, Double budgetCountry, String currency) {
+    this.code = code;
+    this.budget = budget;
+    this.budgetCountry = budgetCountry;
+    this.currency = currency;
+  }
 }

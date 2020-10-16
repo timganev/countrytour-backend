@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,13 +50,20 @@ public class CountryController {
     return countryRepository.findAll();
   }
 
+//  @PreAuthorize("hasRole('ADMIN')")
+//  @DeleteMapping(value = "/users/{id}")
+//  public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
 
-  @GetMapping("calculate")
-  public ResponseEntity<TourResponceDTO> calculateTour
-      (@RequestBody TourRequestDTO request) {
 
+  @GetMapping("calculate/{code}/{bgt}/{bgtCountry}/{currency}")
+  public ResponseEntity<TourResponceDTO> calculateTour(
+          @PathVariable("code") String code,
+          @PathVariable("bgt") Double bgt,
+          @PathVariable("bgtCountry") Double bgtCountry,
+          @PathVariable("currency") String currency) {
+
+    TourRequestDTO request = new TourRequestDTO(code, bgt, bgtCountry, currency);
     Boolean isValid = validationService.validateTour(request);
-
     if (isValid) {
       TourResponceDTO result = countryService.calculateTour(request);
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)

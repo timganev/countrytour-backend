@@ -11,7 +11,6 @@ version = '0.14.0-SNAPSHOT'
 //targetCompatibility = '13'
 
 
-
 configurations {
     globalPlatforms {
         canBeResolved = false
@@ -30,6 +29,9 @@ dependencies {
 
     // Spring
     implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+//    implementation "io.jsonwebtoken:jjwt: 0.9.0"
 //    implementation "org.springframework.security.oauth:spring-security-oauth2"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-validation"
@@ -47,7 +49,6 @@ dependencies {
     implementation "io.springfox:springfox-bean-validators:2.9.2"
     implementation "io.swagger:swagger-annotations:1.6.0"
 //    implementation "org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE"
-
 
 
     // Jackson

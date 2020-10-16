@@ -1,12 +1,12 @@
 package com.country.tour.web;
 
 
-import com.country.tour.db.dto.CountryDTO;
-import com.country.tour.db.dto.TourRequestDTO;
-import com.country.tour.db.dto.TourResponceDTO;
-import com.country.tour.db.model.CountryEntity;
-import com.country.tour.db.model.CountryRepository;
-import com.country.tour.db.model.RateRepository;
+import com.country.tour.model.dto.CountryDTO;
+import com.country.tour.model.dto.TourRequestDTO;
+import com.country.tour.model.dto.TourResponceDTO;
+import com.country.tour.model.entity.CountryEntity;
+import com.country.tour.model.repository.CountryRepository;
+import com.country.tour.model.repository.RateRepository;
 import com.country.tour.service.CountryService;
 import com.country.tour.service.ValidationService;
 import java.util.List;

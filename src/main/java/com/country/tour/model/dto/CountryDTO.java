@@ -1,4 +1,4 @@
-package com.country.tour.db.dto;
+package com.country.tour.model.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

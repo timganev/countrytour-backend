@@ -1,11 +1,11 @@
 package com.country.tour.service;
 
-import com.country.tour.db.dto.CountryDTO;
-import com.country.tour.db.dto.CountryResponceDTO;
-import com.country.tour.db.dto.TourRequestDTO;
-import com.country.tour.db.dto.TourResponceDTO;
-import com.country.tour.db.model.CountryEntity;
-import com.country.tour.db.model.CountryRepository;
+import com.country.tour.model.dto.CountryDTO;
+import com.country.tour.model.dto.CountryResponceDTO;
+import com.country.tour.model.dto.TourRequestDTO;
+import com.country.tour.model.dto.TourResponceDTO;
+import com.country.tour.model.entity.CountryEntity;
+import com.country.tour.model.repository.CountryRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

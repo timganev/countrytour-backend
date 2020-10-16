@@ -1,10 +1,10 @@
 package com.country.tour.web;
 
 
-import com.country.tour.db.model.RateEntity;
-import com.country.tour.db.model.RateRepository;
+import com.country.tour.model.entity.RateEntity;
+import com.country.tour.model.repository.RateRepository;
 import com.country.tour.service.RateService;
-import com.country.tour.db.dto.RatesDTO;
+import com.country.tour.model.dto.RatesDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,7 @@ package com.country.tour.security;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
-import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class AuthenticationService {
         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
         .signWith(HS512, SIGNINGKEY)
         .compact();
-    response.addHeader("Authorization JWT", JwtToken);
+    response.addHeader("Authorization", JwtToken);
 //    response.addHeader("Authorization", PREFIX + " " + JwtToken);
     response.addHeader("Access-Control-Expose-Headers", "Authorization");
   }
@@ -48,8 +48,8 @@ public class AuthenticationService {
             .parseClaimsJws(token.replace(PREFIX, ""))
             .getBody();
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(claims.getSubject());
+        User user = new User();
+        user.setUsername(claims.getSubject());
 
         final Collection<? extends GrantedAuthority> authorities =
             Arrays.stream(claims.get("scope").toString().split(","))
@@ -57,8 +57,8 @@ public class AuthenticationService {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        if (userEntity != null) {
-          return new UsernamePasswordAuthenticationToken(userEntity, null, authorities);
+        if (user != null) {
+          return new UsernamePasswordAuthenticationToken(user, null, authorities);
         }
 
       } catch (Exception ex) {

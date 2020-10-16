@@ -2,7 +2,7 @@ package com.country.tour.service;
 
 import com.country.tour.model.dto.TourRequestDTO;
 import com.country.tour.model.dto.UserDto;
-import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.entity.User;
 import com.country.tour.model.repository.CountryRepository;
 import com.country.tour.model.repository.RateRepository;
 import com.country.tour.model.repository.UserRepository;
@@ -56,7 +56,7 @@ public class ValidationService {
 
   public Boolean validateUser(UserDto request) {
 
-    Optional<UserEntity> optionalEntity = userRepository.findByUsername(request.getUsername());
+    Optional<User> optionalEntity = userRepository.findByUsername(request.getUsername());
 
     if (optionalEntity.isPresent()) {
       return false;

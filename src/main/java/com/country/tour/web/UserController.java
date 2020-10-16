@@ -2,7 +2,7 @@ package com.country.tour.web;
 
 
 import com.country.tour.model.dto.UserDto;
-import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.entity.User;
 import com.country.tour.model.repository.UserRepository;
 import com.country.tour.service.UserService;
 import com.country.tour.service.ValidationService;
@@ -13,8 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,7 +43,7 @@ public class UserController {
 
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping(value = "/users")
-  public ResponseEntity<List<UserEntity>> listUser() {
+  public ResponseEntity<List<User>> listUser() {
     if (userService.findAll().isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,
           "Users not found");
@@ -48,13 +51,39 @@ public class UserController {
     return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
+  @DeleteMapping(value = "/users/{id}")
+  public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
+    try {
+      userService.delete(id);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception exception) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+          "User not found");
+    }
+  }
+
+//  @PreAuthorize("hasRole('ADMIN')")
+//  @PutMapping(value = "/users/{id}")
+//  public ResponseEntity<Void> editUser(@PathVariable("id") int id) {
+//    try {
+//
+//      userService.delete(id);
+//      return new ResponseEntity<>(HttpStatus.OK);
+//    } catch (Exception exception) {
+//      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+//          "User not found");
+//    }
+//  }
+
+
   @PostMapping(value = "/signup")
-  public ResponseEntity<UserEntity> saveUser(@RequestBody UserDto request) {
+  public ResponseEntity<User> saveUser(@RequestBody UserDto request) {
 
     Boolean isValid = validationService.validateUser(request);
 
     if (isValid) {
-      UserEntity result = userService.save(request);
+      User result = userService.save(request);
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
           .body(result);
     }

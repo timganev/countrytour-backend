@@ -1,6 +1,6 @@
 package com.country.tour.service;
 
-import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.entity.User;
 import com.country.tour.model.dto.UserDto;
 import com.country.tour.model.repository.UserRepository;
 import java.util.ArrayList;
@@ -30,22 +30,22 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity userEntity = userRepository.findFirstByUsername(username);
-    if (userEntity == null) {
+    User user = userRepository.findFirstByUsername(username);
+    if (user == null) {
       throw new UsernameNotFoundException("Invalid username or password.");
     }
-    return new org.springframework.security.core.userdetails.User(userEntity.getUsername(), userEntity
-        .getPassword(), getAuthority(userEntity));
+    return new org.springframework.security.core.userdetails.User(user.getUsername(), user
+        .getPassword(), getAuthority(user));
   }
 
-  private Set<SimpleGrantedAuthority> getAuthority(UserEntity userEntity) {
+  private Set<SimpleGrantedAuthority> getAuthority(User user) {
     Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-    authorities.add(new SimpleGrantedAuthority("ROLE_" + userEntity.getRole()));
+    authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     return authorities;
   }
 
-  public List<UserEntity> findAll() {
-    List<UserEntity> list = new ArrayList<>();
+  public List<User> findAll() {
+    List<User> list = new ArrayList<>();
     userRepository.findAll().iterator().forEachRemaining(list::add);
     return list;
   }
@@ -56,15 +56,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   }
 
   @Override
-  public UserEntity findOne(String username) {
+  public User findOne(String username) {
     return userRepository.findFirstByUsername(username);
   }
 
 
   @Override
-  public UserEntity save(UserDto user) {
+  public User save(UserDto user) {
 
-    UserEntity newUser = new UserEntity();
+    User newUser = new User();
     newUser.setUsername(user.getUsername());
     newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
     newUser.setActive(true);

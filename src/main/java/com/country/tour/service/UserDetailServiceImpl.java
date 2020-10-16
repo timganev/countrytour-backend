@@ -1,6 +1,6 @@
 package com.country.tour.service;
 
-import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.entity.User;
 import com.country.tour.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -21,7 +21,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity currentUser = userRepository.findFirstByUsername(username);
+    User currentUser = userRepository.findFirstByUsername(username);
     UserDetails user = new org.springframework.security.core.userdetails.User(username,
         currentUser.getPassword()
         , true, true, true, true, AuthorityUtils.createAuthorityList(currentUser.getRole()));

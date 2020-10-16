@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,30 +24,31 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
   @Override
   public Authentication attemptAuthentication(
-      HttpServletRequest req, HttpServletResponse res)
-      throws AuthenticationException, IOException, ServletException {
-    AccountCredentials creds = new ObjectMapper()
-        .readValue(req.getInputStream(), AccountCredentials.class);
-    return getAuthenticationManager().authenticate(
-        new UsernamePasswordAuthenticationToken(
-            creds.getUsername(),
-            creds.getPassword(),
-            Collections.emptyList()
-        )
-    );
+      HttpServletRequest request,
+      HttpServletResponse response)
+      throws AuthenticationException, IOException {
+
+    AccountCredentials credentials = new ObjectMapper()
+        .readValue(request.getInputStream(), AccountCredentials.class);
+
+    return getAuthenticationManager()
+        .authenticate(new UsernamePasswordAuthenticationToken(
+                credentials.getUsername(),
+                credentials.getPassword(),
+                Collections.emptyList()
+            )
+        );
   }
 
   @Override
   protected void successfulAuthentication(
-      HttpServletRequest req,
+      HttpServletRequest request,
       HttpServletResponse response, FilterChain chain,
-      Authentication authentication) throws IOException, ServletException {
+      Authentication authentication) {
 
-    final String authorities = authentication
-        .getAuthorities().stream()
-        .map(GrantedAuthority::getAuthority)
+    final String role = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
         .collect(Collectors.joining(","));
 
-    AuthenticationService.addToken(response, authentication.getName(), authorities);
+    AuthenticationService.addToken(response, authentication.getName(), role);
   }
 }

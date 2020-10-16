@@ -1,8 +1,12 @@
 package com.country.tour.service;
 
 import com.country.tour.model.dto.TourRequestDTO;
+import com.country.tour.model.dto.UserDto;
+import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.repository.CountryRepository;
 import com.country.tour.model.repository.RateRepository;
+import com.country.tour.model.repository.UserRepository;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +22,17 @@ public class ValidationService {
 
   private RateRepository rateRepository;
 
+  private UserRepository userRepository;
+
 
   @Autowired
   public ValidationService(ModelMapper modelMapper,
-      CountryRepository countryRepository, RateRepository rateRepository) {
+      CountryRepository countryRepository, RateRepository rateRepository,
+      UserRepository userRepository) {
     this.modelMapper = modelMapper;
     this.countryRepository = countryRepository;
     this.rateRepository = rateRepository;
+    this.userRepository = userRepository;
   }
 
 
@@ -46,6 +54,26 @@ public class ValidationService {
     return true;
   }
 
+  public Boolean validateUser(UserDto request) {
+
+    Optional<UserEntity> optionalEntity = userRepository.findByUsername(request.getUsername());
+
+    if (optionalEntity.isPresent()) {
+      return false;
+    }
+
+    if (!isLessGreater(String.valueOf(request.getUsername()))) {
+      return false;
+    }
+
+    if (!isLessGreater(String.valueOf(request.getPassword()))) {
+      return false;
+    }
+
+    return true;
+  }
+
+
   private Boolean isPositiveNumber(String amount) {
 
     String regex = "^[+]?([.]\\d+|\\d+[.]?\\d*)$";
@@ -58,6 +86,15 @@ public class ValidationService {
     return true;
   }
 
+  private Boolean isLessGreater(String str) {
+    String regex = "^.{2,20}$";
+    Pattern pattern = Pattern.compile(regex);
 
+    if (str == null || str.equals("") || !pattern.matcher(str)
+        .matches()) {
+      return false;
+    }
+    return true;
+  }
 
 }

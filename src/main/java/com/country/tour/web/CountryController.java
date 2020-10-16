@@ -57,13 +57,11 @@ public class CountryController {
     Boolean isValid = validationService.validateTour(request);
 
     if (isValid) {
-
       TourResponceDTO result = countryService.calculateTour(request);
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
           .body(result);
-    } else {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
   }
 

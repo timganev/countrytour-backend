@@ -16,7 +16,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1TUdhY1lNQWRGdkMxcFFQWURROWtuQW12a0VuTS1xcThEMkxKOXdscjVnIn0.eyJleHAiOjE1OTcwNzc2MzYsImlhdCI6MTU5NzA0MTYzNiwianRpIjoiNzllZTFhMGYtMWMyOS00OWU2LWI1MzAtZmZiZDk1ODlkMmFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2F1dGgvcmVhbG1zL2JldHRlcnBsYXRmb3JtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM4Mzk5ODhkLWIxNGItNDEzYS05ZjFhLThkNWVjMWRkM2E5OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImF1dGhlbnRpY2F0aW9uLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiYTNiODMxMzMtY2JkNC00ZjNjLTlmNWEtNzdjMzU3MTYxN2Y3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwbGF5ZXJzLXJvbGUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYXV0aGVudGljYXRpb24tc2VydmljZSI6eyJyb2xlcyI6WyJwbGF5ZXJzIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfaWQiOiIxIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlydXNsYXYwMSIsImVtYWlsIjoidmlydXNsYXYwMUBkZXZyZWFsbS5iZyJ9.ZzmmSJeyvafrpc9BWiUoPv58VF01kc_PXq8SZCvcaNjtpGplpUo3as2Obv_rIpq3X0IC_nFI1po5Cgad5bXg1yQCublSJsHdrXoghsJWC7VF1FrH_37kuXb8ofSvhjOPdAS-gAhw4rSvVOjxtXFrPW3DR3ngA94qXCmtua2x3djfginsp1l_YCCAiwyZwA3J3Mqm2TevoFPnTnMNRio4wpPsCutbTPZk6baDOWC6SvOBvKi4xXdTI-lR_g3VRJrZrp_cPQDeNBISDmNcdyzGewfAGqgv8geENskq6pfJbd53BMOCTjAZdKJIcF6jTxX7bL5Ly_m3gV9mz77PYu647Q",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJDb3VudHJ5VG91ckFwcCIsInN1YiI6ImFkbWluIiwic2NvcGUiOiJBRE1JTiIsImlhdCI6MTYwMjg0MzgyOSwiZXhwIjoxNjAyOTMwMjI5fQ.HzaFDOx7LOyJFVaBd0CxOe1ZWXh9WPQOl4bx4vvkWzHPzJImW_eavgVEDZl6BYArBlWDBeousN7vq-n-7HgPGA",
 							"type": "string"
 						}
 					]
@@ -71,7 +71,143 @@
 			"response": []
 		},
 		{
-			"name": "findAllFX remote",
+			"name": "calculate Remote",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJDb3VudHJ5VG91ckFwcCIsInN1YiI6ImFkbWluIiwic2NvcGUiOiJBRE1JTiIsImlhdCI6MTYwMjg0MzgyOSwiZXhwIjoxNjAyOTMwMjI5fQ.HzaFDOx7LOyJFVaBd0CxOe1ZWXh9WPQOl4bx4vvkWzHPzJImW_eavgVEDZl6BYArBlWDBeousN7vq-n-7HgPGA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"GR\",\n    \"budget\": 1200,\n    \"budgetCountry\": 100.22232,\n    \"currency\": \"EUR\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://countrytour-backend.herokuapp.com/countries/calculate/",
+					"protocol": "https",
+					"host": [
+						"countrytour-backend",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"countries",
+						"calculate",
+						""
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "BG",
+							"disabled": true
+						},
+						{
+							"key": "budget",
+							"value": "1200",
+							"disabled": true
+						},
+						{
+							"key": "budgetcountry",
+							"value": "100",
+							"disabled": true
+						},
+						{
+							"key": "currency",
+							"value": "EUR",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllcountries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJDYXRhbG9nQXBwIiwic3ViIjoiYWRtaW4iLCJzY29wZSI6IkFETUlOIiwiaWF0IjoxNjAyODM1OTYwLCJleHAiOjE2MDI5MjIzNjB9.ejEjkriG74ZZ1vSJ6xR0pP1Xc-tx2VyQa-XlrFRO0RNEICa-Hk1QcTrgv4KmlhPbZe7J9a3HvcWayfTI42TipA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllFX",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJDYXRhbG9nQXBwIiwic3ViIjoiYWRtaW4iLCJzY29wZSI6IkFETUlOIiwiaWF0IjoxNjAyODM1OTYwLCJleHAiOjE2MDI5MjIzNjB9.ejEjkriG74ZZ1vSJ6xR0pP1Xc-tx2VyQa-XlrFRO0RNEICa-Hk1QcTrgv4KmlhPbZe7J9a3HvcWayfTI42TipA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/fx",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllFX Remote",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -113,14 +249,14 @@
 			"response": []
 		},
 		{
-			"name": "getAllcountries",
+			"name": "http://localhost:8080/api/users",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1TUdhY1lNQWRGdkMxcFFQWURROWtuQW12a0VuTS1xcThEMkxKOXdscjVnIn0.eyJleHAiOjE1OTcwNzc2MzYsImlhdCI6MTU5NzA0MTYzNiwianRpIjoiNzllZTFhMGYtMWMyOS00OWU2LWI1MzAtZmZiZDk1ODlkMmFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2F1dGgvcmVhbG1zL2JldHRlcnBsYXRmb3JtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM4Mzk5ODhkLWIxNGItNDEzYS05ZjFhLThkNWVjMWRkM2E5OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImF1dGhlbnRpY2F0aW9uLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiYTNiODMxMzMtY2JkNC00ZjNjLTlmNWEtNzdjMzU3MTYxN2Y3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwbGF5ZXJzLXJvbGUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYXV0aGVudGljYXRpb24tc2VydmljZSI6eyJyb2xlcyI6WyJwbGF5ZXJzIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfaWQiOiIxIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlydXNsYXYwMSIsImVtYWlsIjoidmlydXNsYXYwMUBkZXZyZWFsbS5iZyJ9.ZzmmSJeyvafrpc9BWiUoPv58VF01kc_PXq8SZCvcaNjtpGplpUo3as2Obv_rIpq3X0IC_nFI1po5Cgad5bXg1yQCublSJsHdrXoghsJWC7VF1FrH_37kuXb8ofSvhjOPdAS-gAhw4rSvVOjxtXFrPW3DR3ngA94qXCmtua2x3djfginsp1l_YCCAiwyZwA3J3Mqm2TevoFPnTnMNRio4wpPsCutbTPZk6baDOWC6SvOBvKi4xXdTI-lR_g3VRJrZrp_cPQDeNBISDmNcdyzGewfAGqgv8geENskq6pfJbd53BMOCTjAZdKJIcF6jTxX7bL5Ly_m3gV9mz77PYu647Q",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJDYXRhbG9nQXBwIiwic3ViIjoiYWRtaW4iLCJzY29wZSI6IkFETUlOIiwiaWF0IjoxNjAyODM1OTYwLCJleHAiOjE2MDI5MjIzNjB9.ejEjkriG74ZZ1vSJ6xR0pP1Xc-tx2VyQa-XlrFRO0RNEICa-Hk1QcTrgv4KmlhPbZe7J9a3HvcWayfTI42TipA",
 							"type": "string"
 						}
 					]
@@ -128,55 +264,104 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/countries",
+					"raw": "http://localhost:8080/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"countries"
+						"users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "findAllFX",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "http://localhost:8080/signup",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1TUdhY1lNQWRGdkMxcFFQWURROWtuQW12a0VuTS1xcThEMkxKOXdscjVnIn0.eyJleHAiOjE1OTcwNzc2MzYsImlhdCI6MTU5NzA0MTYzNiwianRpIjoiNzllZTFhMGYtMWMyOS00OWU2LWI1MzAtZmZiZDk1ODlkMmFjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2F1dGgvcmVhbG1zL2JldHRlcnBsYXRmb3JtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjM4Mzk5ODhkLWIxNGItNDEzYS05ZjFhLThkNWVjMWRkM2E5OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImF1dGhlbnRpY2F0aW9uLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiYTNiODMxMzMtY2JkNC00ZjNjLTlmNWEtNzdjMzU3MTYxN2Y3IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwbGF5ZXJzLXJvbGUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYXV0aGVudGljYXRpb24tc2VydmljZSI6eyJyb2xlcyI6WyJwbGF5ZXJzIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInVzZXJfaWQiOiIxIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlydXNsYXYwMSIsImVtYWlsIjoidmlydXNsYXYwMUBkZXZyZWFsbS5iZyJ9.ZzmmSJeyvafrpc9BWiUoPv58VF01kc_PXq8SZCvcaNjtpGplpUo3as2Obv_rIpq3X0IC_nFI1po5Cgad5bXg1yQCublSJsHdrXoghsJWC7VF1FrH_37kuXb8ofSvhjOPdAS-gAhw4rSvVOjxtXFrPW3DR3ngA94qXCmtua2x3djfginsp1l_YCCAiwyZwA3J3Mqm2TevoFPnTnMNRio4wpPsCutbTPZk6baDOWC6SvOBvKi4xXdTI-lR_g3VRJrZrp_cPQDeNBISDmNcdyzGewfAGqgv8geENskq6pfJbd53BMOCTjAZdKJIcF6jTxX7bL5Ly_m3gV9mz77PYu647Q",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\n\t\"username\": \"user\",\n\t\"password\":\"user\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/fx",
+					"raw": "http://localhost:8080/signup",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"fx"
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\":\"admin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login Remote",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\":\"admin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
 					]
 				}
 			},

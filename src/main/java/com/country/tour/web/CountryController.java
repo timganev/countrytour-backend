@@ -8,17 +8,17 @@ import com.country.tour.model.entity.CountryEntity;
 import com.country.tour.model.repository.CountryRepository;
 import com.country.tour.model.repository.RateRepository;
 import com.country.tour.service.CountryService;
-import com.country.tour.service.ValidationService;
+import com.country.tour.validation.ValidationService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -50,26 +50,24 @@ public class CountryController {
     return countryRepository.findAll();
   }
 
-//  @PreAuthorize("hasRole('ADMIN')")
-//  @DeleteMapping(value = "/users/{id}")
-//  public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
 
-
-  @GetMapping("calculate/{code}/{bgt}/{bgtCountry}/{currency}")
+  @GetMapping("calculate")
   public ResponseEntity<TourResponceDTO> calculateTour(
-          @PathVariable("code") String code,
-          @PathVariable("bgt") Double bgt,
-          @PathVariable("bgtCountry") Double bgtCountry,
-          @PathVariable("currency") String currency) {
+      @RequestParam String code,
+      @RequestParam Double budget,
+      @RequestParam Double budgetCountry,
+      @RequestParam String currency) {
 
-    TourRequestDTO request = new TourRequestDTO(code, bgt, bgtCountry, currency);
-    Boolean isValid = validationService.validateTour(request);
-    if (isValid) {
+    validationService.validateTour(code, budget, budgetCountry, currency);
+
+      code = code.toUpperCase();
+      currency = currency.toUpperCase();
+      TourRequestDTO request = new TourRequestDTO(code, budget, budgetCountry, currency);
+
       TourResponceDTO result = countryService.calculateTour(request);
+
       return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
           .body(result);
-    }
-    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
   }
 

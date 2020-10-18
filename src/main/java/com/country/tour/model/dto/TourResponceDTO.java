@@ -19,6 +19,8 @@ public class TourResponceDTO {
 
   private Double budgetCountry;
 
+  private Double budgetCountryEUR;
+
   private Double budgetTour;
 
   private Integer numberTours;

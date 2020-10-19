@@ -6,6 +6,7 @@ import com.country.tour.model.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -58,6 +59,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   @Override
   public User findOne(String username) {
     return userRepository.findFirstByUsername(username);
+  }
+
+  @Override
+  public void update(int id, String role) {
+
+    Optional<User> optional = userRepository.findById(id);
+    if(optional.isPresent()) {
+      User entity = optional.get();
+      entity.setRole(role);
+    }
+
   }
 
 

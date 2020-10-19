@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -62,25 +63,22 @@ public class UserController {
     }
   }
 
-//  @PreAuthorize("hasRole('ADMIN')")
-//  @PutMapping(value = "/users/{id}")
-//  public ResponseEntity<Void> editUser(@PathVariable("id") int id) {
-//    try {
-//
-//      userService.delete(id);
-//      return new ResponseEntity<>(HttpStatus.OK);
-//    } catch (Exception exception) {
-//      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-//          "User not found");
-//    }
-//  }
+  @PreAuthorize("hasRole('ADMIN')")
+  @PutMapping(value = "/users/{id}/role/{role}")
+  public ResponseEntity<Void> editUser(@PathVariable("id") int id, @PathVariable("role") String role) {
+    try {
+      userService.update(id, role);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception exception) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+          "User not found");
+    }
+  }
 
 
   @PostMapping(value = "/signup")
   public ResponseEntity<User> saveUser(@RequestBody UserDto request) {
-
     validationService.validateUser(request);
-
     User result = userService.save(request);
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(result);

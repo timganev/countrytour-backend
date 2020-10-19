@@ -15,4 +15,5 @@ public interface UserService {
 
     User findOne(String username);
 
+  void update(int id, String role);
 }

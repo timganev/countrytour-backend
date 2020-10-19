@@ -19,3 +19,11 @@ Requirements:
 1. Use Java Spring Boot Framework to build the REST API
 
 2. Upload project to GIT/Bitbucket
+
+
+https://tour-frontend.web.app/signin
+
+
+The app will take some time (around 30 seconds) to wake up!
+Why Did I Choose Heroku?
+Heroku free tier is quite sufficient for demo projects. But one downside of it is that the app is put to sleep after 30 minutes of inactivity.

@@ -1,5 +1,14 @@
 package com.country.tour.validation;
 
+import static com.country.tour.validation.CountryErrorType.Country_301;
+import static com.country.tour.validation.CountryErrorType.Country_302;
+import static com.country.tour.validation.CountryErrorType.Country_303;
+import static com.country.tour.validation.CountryErrorType.Country_304;
+import static com.country.tour.validation.CountryErrorType.Country_305;
+import static com.country.tour.validation.CountryErrorType.Country_306;
+import static com.country.tour.validation.CountryErrorType.Country_307;
+import static com.country.tour.validation.CountryErrorType.Country_308;
+
 import com.country.tour.model.dto.UserDto;
 import com.country.tour.model.repository.CountryRepository;
 import com.country.tour.model.repository.RateRepository;
@@ -41,37 +50,35 @@ public class ValidationService {
 
     Optional<ConstraintViolation> codeNull = Optional.empty();
     if (code == null || code.equals("") || currency == null || currency.equals("")) {
-      codeNull = Optional.of(new ConstraintViolation("Country&Currency1",
-          "Country code or currency can no be null or empty."));
+      codeNull = Optional
+          .of(new ConstraintViolation(Country_301.name(), Country_301.getDefaultErrorMessage()));
     }
 
-    Optional<ConstraintViolation> bugetLessOrZero = isAmountLessOrZero(String.valueOf(bgt),
-        "budget");
-    Optional<ConstraintViolation> bugetCoutryLessOrZero = isAmountLessOrZero(
-        String.valueOf(bgtCountry),
-        "budgetCountry");
+    Optional<ConstraintViolation> validBuget = isAmountLessOrZero(String.valueOf(bgt), Country_307);
+    Optional<ConstraintViolation> validBegetCountry = isAmountLessOrZero(String.valueOf(bgtCountry),
+        Country_308);
 
     code = code.toUpperCase();
     currency = currency.toUpperCase();
 
     Optional<ConstraintViolation> validCode = Optional.empty();
     if (!countryRepository.existsById(code)) {
-      validCode = Optional.of(new ConstraintViolation("Country&Currency2",
-          "Invalid country code."));
+      validCode = Optional
+          .of(new ConstraintViolation(Country_302.name(), Country_302.getDefaultErrorMessage()));
     }
 
     Optional<ConstraintViolation> validCurrency = Optional.empty();
     if (!rateRepository.existsById(currency)) {
-      validCurrency = Optional.of(new ConstraintViolation("Country&Currency3",
+      validCurrency = Optional.of(new ConstraintViolation(Country_303.name(),
           "Invalid currency code."));
     }
 
     createExceptionIfNeccessary(
-        Arrays.asList(codeNull, validCode, validCurrency, bugetLessOrZero, bugetCoutryLessOrZero));
+        Arrays.asList(codeNull, validCode, validCurrency, validBuget, validBegetCountry));
   }
 
 
-  private Optional<ConstraintViolation> isAmountLessOrZero(String amount, String errCode) {
+  private Optional<ConstraintViolation> isAmountLessOrZero(String amount, CountryErrorType code) {
 
     String regex = "^[+]?([.]\\d+|\\d+[.]?\\d*)$";
     Pattern pattern = Pattern.compile(regex);
@@ -79,7 +86,7 @@ public class ValidationService {
     if (amount == null || amount.equals("") || !pattern.matcher(amount)
         .matches()) {
       return Optional
-          .of(new ConstraintViolation(errCode, "Amount must be a number and greater than 0."));
+          .of(new ConstraintViolation(code.name(), code.getDefaultErrorMessage()));
     }
     return Optional.empty();
 
@@ -89,20 +96,20 @@ public class ValidationService {
 
     Optional<ConstraintViolation> usedUsername = Optional.empty();
     if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-      usedUsername = Optional.of(new ConstraintViolation("username1",
-          "Username already in use."));
+      usedUsername = Optional.of(new ConstraintViolation(Country_304.name(),
+          Country_304.getDefaultErrorMessage()));
     }
 
     Optional<ConstraintViolation> validUsername = Optional.empty();
     if (!isLessGreater(String.valueOf(request.getUsername()))) {
-      usedUsername = Optional.of(new ConstraintViolation("username2",
-          "Can't be less then 2 or greater then 20 characters"));
+      validUsername = Optional.of(new ConstraintViolation(Country_305.name(),
+          Country_305.getDefaultErrorMessage()));
     }
 
     Optional<ConstraintViolation> validPassword = Optional.empty();
     if (!isLessGreater(String.valueOf(request.getPassword()))) {
-      usedUsername = Optional.of(new ConstraintViolation("password1",
-          "Can't be less then 2 or greater then 20 characters"));
+      validPassword = Optional.of(new ConstraintViolation(Country_306.name(),
+          Country_306.getDefaultErrorMessage()));
     }
 
     createExceptionIfNeccessary(

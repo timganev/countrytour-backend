@@ -22,7 +22,7 @@ Requirements:
 
 
 
-###################################################################3
+###################################################################
 https://tour-frontend.web.app/
 The app will take some time (around 30 seconds) to wake up!
 Why Did I Choose Heroku?

@@ -20,7 +20,7 @@ public class RestExceptionHandlerUtil {
         .body(ex.getErrorMessages());
   }
 
-//  public static <T extends Enum & com.betterplatform.commons.validation.ErrorType> ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
+//  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
 //      MethodArgumentNotValidException ex, Class<T> errorType) {
 //
 //    Map<String, String> errorMap = new HashMap<String, String>();
@@ -28,7 +28,7 @@ public class RestExceptionHandlerUtil {
 //    for (ObjectError oe : ex.getBindingResult().getAllErrors()) {
 //      if (Enums.getIfPresent(errorType, oe.getDefaultMessage()).isPresent()) {
 //        String defaultErrorMsg =
-//            ((com.betterplatform.commons.validation.ErrorType) Enum.valueOf(errorType, oe.getDefaultMessage())).getDefaultErrorMessage();
+//            ((ErrorType) Enum.valueOf(errorType, oe.getDefaultMessage())).getDefaultErrorMessage();
 //        log.warn("An error for NotValid Argument is thrown. Error code is: {} Error message is: {}",
 //            oe.getDefaultMessage(), defaultErrorMsg);
 //        errorMap.put(oe.getDefaultMessage(), defaultErrorMsg);
@@ -42,7 +42,7 @@ public class RestExceptionHandlerUtil {
 //        .body(errorMap);
 //  }
 //
-//  public static <T extends Enum & com.betterplatform.commons.validation.ErrorType> ResponseEntity<Map<String, String>> handleThrowable(
+//  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleThrowable(
 //      Throwable ex, T errorType) {
 //    Map<String, String> errorMap = new HashMap<String, String>();
 //    errorMap.put(errorType.name(), errorType.getDefaultErrorMessage());

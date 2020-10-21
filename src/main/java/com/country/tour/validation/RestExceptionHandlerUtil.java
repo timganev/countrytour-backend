@@ -20,34 +20,34 @@ public class RestExceptionHandlerUtil {
         .body(ex.getErrorMessages());
   }
 
-//  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
-//      MethodArgumentNotValidException ex, Class<T> errorType) {
-//
-//    Map<String, String> errorMap = new HashMap<String, String>();
-//
-//    for (ObjectError oe : ex.getBindingResult().getAllErrors()) {
-//      if (Enums.getIfPresent(errorType, oe.getDefaultMessage()).isPresent()) {
-//        String defaultErrorMsg =
-//            ((ErrorType) Enum.valueOf(errorType, oe.getDefaultMessage())).getDefaultErrorMessage();
-//        log.warn("An error for NotValid Argument is thrown. Error code is: {} Error message is: {}",
-//            oe.getDefaultMessage(), defaultErrorMsg);
-//        errorMap.put(oe.getDefaultMessage(), defaultErrorMsg);
-//      } else {
-//        log.warn("An unexpected error for NotValid Argument is thrown. Error code is: {}",
-//            oe.getDefaultMessage());
-//        errorMap.put(oe.getDefaultMessage(), "Error msg could not be found.");
-//      }
-//    }
-//    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
-//        .body(errorMap);
-//  }
-//
-//  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleThrowable(
-//      Throwable ex, T errorType) {
-//    Map<String, String> errorMap = new HashMap<String, String>();
-//    errorMap.put(errorType.name(), errorType.getDefaultErrorMessage());
-//    log.error("An unexpected error is thrown.", ex);
-//    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
-//        .body(errorMap);
-//  }
+  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
+      MethodArgumentNotValidException ex, Class<T> errorType) {
+
+    Map<String, String> errorMap = new HashMap<String, String>();
+
+    for (ObjectError oe : ex.getBindingResult().getAllErrors()) {
+      if (Enums.getIfPresent(errorType, oe.getDefaultMessage()).isPresent()) {
+        String defaultErrorMsg =
+            ((ErrorType) Enum.valueOf(errorType, oe.getDefaultMessage())).getDefaultErrorMessage();
+        log.warn("An error for NotValid Argument is thrown. Error code is: {} Error message is: {}",
+            oe.getDefaultMessage(), defaultErrorMsg);
+        errorMap.put(oe.getDefaultMessage(), defaultErrorMsg);
+      } else {
+        log.warn("An unexpected error for NotValid Argument is thrown. Error code is: {}",
+            oe.getDefaultMessage());
+        errorMap.put(oe.getDefaultMessage(), "Error msg could not be found.");
+      }
+    }
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
+        .body(errorMap);
+  }
+
+  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleThrowable(
+      Throwable ex, T errorType) {
+    Map<String, String> errorMap = new HashMap<String, String>();
+    errorMap.put(errorType.name(), errorType.getDefaultErrorMessage());
+    log.error("An unexpected error is thrown.", ex);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
+        .body(errorMap);
+  }
 }

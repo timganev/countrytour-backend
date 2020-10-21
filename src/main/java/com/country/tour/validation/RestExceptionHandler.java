@@ -17,4 +17,17 @@ public class RestExceptionHandler {
     return RestExceptionHandlerUtil.handleConstraintViolationException(ex);
   }
 
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public final ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
+      MethodArgumentNotValidException ex) {
+
+    return RestExceptionHandlerUtil.handleMethodArgumentNotValidException(ex,
+        CountryErrorType.class);
+  }
+
+  @ExceptionHandler(Throwable.class)
+  public final ResponseEntity<Map<String, String>> handleThrowable(Throwable ex) {
+    return RestExceptionHandlerUtil.handleThrowable(ex, CountryErrorType.GE_500);
+  }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 
 @Slf4j
 public class RestExceptionHandlerUtil {
@@ -47,6 +48,15 @@ public class RestExceptionHandlerUtil {
     Map<String, String> errorMap = new HashMap<String, String>();
     errorMap.put(errorType.name(), errorType.getDefaultErrorMessage());
     log.error("An unexpected error is thrown.", ex);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
+        .body(errorMap);
+  }
+
+  public static <T extends Enum & ErrorType> ResponseEntity<Map<String, String>> handleMissingServletRequestParameterException(
+      MissingServletRequestParameterException ex, T errorType) {
+    Map<String, String> errorMap = new HashMap<String, String>();
+    errorMap.put(errorType.name(), ex.getMessage());
+    log.error("Missing Servlet Request Parameter Exception.", ex);
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
         .body(errorMap);
   }

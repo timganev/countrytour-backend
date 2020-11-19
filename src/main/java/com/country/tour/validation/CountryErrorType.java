@@ -12,7 +12,7 @@ public enum CountryErrorType implements ErrorType {
   Country_307("Budget amount amust be a number and greater than 0."),
   Country_308("BudgetCountry amount must be a number and greater than 0."),
 
-
+  GE_400("General Error"),
   GE_500("General Error");
 
   private final String defaultErrorMessage;

@@ -5,6 +5,7 @@ import com.country.tour.validation.RestExceptionHandlerUtil;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,4 +31,10 @@ public class RestExceptionHandler {
     return RestExceptionHandlerUtil.handleThrowable(ex, CountryErrorType.GE_500);
   }
 
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public final ResponseEntity<Map<String, String>> handleMissingServletRequestParameterException(
+      MissingServletRequestParameterException ex) {
+    return RestExceptionHandlerUtil
+        .handleMissingServletRequestParameterException(ex, CountryErrorType.GE_400);
+  }
 }

@@ -2,7 +2,7 @@ package com.country.tour.security;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
-import com.country.tour.model.entity.User;
+import com.country.tour.model.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import java.util.Arrays;
@@ -48,8 +48,8 @@ public class AuthenticationService {
             .parseClaimsJws(token.replace(PREFIX, ""))
             .getBody();
 
-        User user = new User();
-        user.setUsername(claims.getSubject());
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(claims.getSubject());
 
         final Collection<? extends GrantedAuthority> authorities =
             Arrays.stream(claims.get("scope").toString().split(","))
@@ -57,8 +57,8 @@ public class AuthenticationService {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        if (user != null) {
-          return new UsernamePasswordAuthenticationToken(user, null, authorities);
+        if (userEntity != null) {
+          return new UsernamePasswordAuthenticationToken(userEntity, null, authorities);
         }
 
       } catch (Exception ex) {

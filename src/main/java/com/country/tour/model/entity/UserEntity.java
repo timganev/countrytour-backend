@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 @Entity
-public class User {
+public class UserEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class User {
   private Boolean active;
 
 
-  public User() {
+  public UserEntity() {
   }
 
-  public User(String username, String password, String role, Boolean active) {
+  public UserEntity(String username, String password, String role, Boolean active) {
     super();
     setUsername(username);
     this.password = password;

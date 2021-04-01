@@ -1,19 +1,20 @@
 package com.country.tour.service;
 
 
-import com.country.tour.model.entity.User;
+import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.dto.UserDto;
+import com.country.tour.model.projection.UserView;
 import java.util.List;
 
 public interface UserService {
 
-    User save(UserDto user);
+    UserEntity save(UserDto user);
 
-    List<User> findAll();
+    List<UserView> findAll();
 
     void delete(int id);
 
-    User findOne(String username);
+    UserEntity findOne(String username);
 
   void update(int id, String role);
 }

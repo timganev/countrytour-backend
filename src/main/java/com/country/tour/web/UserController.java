@@ -2,7 +2,8 @@ package com.country.tour.web;
 
 
 import com.country.tour.model.dto.UserDto;
-import com.country.tour.model.entity.User;
+import com.country.tour.model.entity.UserEntity;
+import com.country.tour.model.projection.UserView;
 import com.country.tour.model.repository.UserRepository;
 import com.country.tour.service.UserService;
 import com.country.tour.validation.ValidationService;
@@ -43,12 +44,10 @@ public class UserController {
 
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping(value = "/users")
-  public ResponseEntity<List<User>> listUser() {
-    if (userService.findAll().isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-          "Users not found");
-    }
-    return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+  public ResponseEntity<List<UserView>> findAllUsers() {
+    List<UserView> list = userService.findAll();
+    return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+        .body(list);
   }
 
   @PreAuthorize("hasRole('ADMIN')")
@@ -77,9 +76,9 @@ public class UserController {
 
 
   @PostMapping(value = "/signup")
-  public ResponseEntity<User> saveUser(@RequestBody UserDto request) {
+  public ResponseEntity<UserEntity> saveUser(@RequestBody UserDto request) {
     validationService.validateUser(request);
-    User result = userService.save(request);
+    UserEntity result = userService.save(request);
     return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
         .body(result);
 

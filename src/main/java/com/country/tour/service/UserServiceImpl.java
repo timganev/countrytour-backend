@@ -1,9 +1,9 @@
 package com.country.tour.service;
 
-import com.country.tour.model.entity.User;
+import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.dto.UserDto;
+import com.country.tour.model.projection.UserView;
 import com.country.tour.model.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,23 +31,22 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   }
 
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findFirstByUsername(username);
-    if (user == null) {
+    UserEntity userEntity = userRepository.findFirstByUsername(username);
+    if (userEntity == null) {
       throw new UsernameNotFoundException("Invalid username or password.");
     }
-    return new org.springframework.security.core.userdetails.User(user.getUsername(), user
-        .getPassword(), getAuthority(user));
+    return new org.springframework.security.core.userdetails.User(userEntity.getUsername(), userEntity
+        .getPassword(), getAuthority(userEntity));
   }
 
-  private Set<SimpleGrantedAuthority> getAuthority(User user) {
+  private Set<SimpleGrantedAuthority> getAuthority(UserEntity userEntity) {
     Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-    authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+    authorities.add(new SimpleGrantedAuthority("ROLE_" + userEntity.getRole()));
     return authorities;
   }
 
-  public List<User> findAll() {
-    List<User> list = new ArrayList<>();
-    userRepository.findAll().iterator().forEachRemaining(list::add);
+  public List<UserView> findAll() {
+    List<UserView> list = userRepository.findAllUsers();
     return list;
   }
 
@@ -57,16 +56,16 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   }
 
   @Override
-  public User findOne(String username) {
+  public UserEntity findOne(String username) {
     return userRepository.findFirstByUsername(username);
   }
 
   @Override
   public void update(int id, String role) {
 
-    Optional<User> optional = userRepository.findById(id);
+    Optional<UserEntity> optional = userRepository.findById(id);
     if(optional.isPresent()) {
-      User entity = optional.get();
+      UserEntity entity = optional.get();
       entity.setRole(role);
     }
 
@@ -74,14 +73,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 
   @Override
-  public User save(UserDto user) {
+  public UserEntity save(UserDto user) {
 
-    User newUser = new User();
-    newUser.setUsername(user.getUsername());
-    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-    newUser.setActive(true);
-    newUser.setRole("USER");
-    return userRepository.save(newUser);
+    UserEntity newUserEntity = new UserEntity();
+    newUserEntity.setUsername(user.getUsername());
+    newUserEntity.setPassword(bcryptEncoder.encode(user.getPassword()));
+    newUserEntity.setActive(true);
+    newUserEntity.setRole("USER");
+    return userRepository.save(newUserEntity);
   }
 
 

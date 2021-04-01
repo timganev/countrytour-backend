@@ -4,7 +4,7 @@ import com.country.tour.model.entity.CountryEntity;
 import com.country.tour.model.repository.CountryRepository;
 import com.country.tour.model.entity.RateEntity;
 import com.country.tour.model.repository.RateRepository;
-import com.country.tour.model.entity.User;
+import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.repository.UserRepository;
 import java.io.IOException;
 import org.modelmapper.ModelMapper;
@@ -12,8 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class BeanConfig {
@@ -47,7 +45,7 @@ public class BeanConfig {
 
     return args -> {
 
-      userRepository.save(new User("admin", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", "ADMIN", true));
+      userRepository.save(new UserEntity("admin", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", "ADMIN", true));
 
       ///////////////////////////////
       rateRepository.save(new RateEntity("AED", 4.310791));

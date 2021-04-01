@@ -23,8 +23,6 @@ public class CountryEntity {
 
   private String neighbours;
 
-//  @CreationTimestamp
-//  private LocalDateTime createdOn;
 
   @UpdateTimestamp
   private LocalDateTime updatedOn;

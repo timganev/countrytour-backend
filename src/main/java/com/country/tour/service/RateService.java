@@ -1,8 +1,8 @@
 package com.country.tour.service;
 
+import com.country.tour.model.dto.RatesDTO;
 import com.country.tour.model.entity.RateEntity;
 import com.country.tour.model.repository.RateRepository;
-import com.country.tour.model.dto.RatesDTO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

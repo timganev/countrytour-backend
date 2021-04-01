@@ -1,7 +1,7 @@
 package com.country.tour.service;
 
-import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.dto.UserDto;
+import com.country.tour.model.entity.UserEntity;
 import com.country.tour.model.projection.UserView;
 import com.country.tour.model.repository.UserRepository;
 import java.util.HashSet;
@@ -35,8 +35,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     if (userEntity == null) {
       throw new UsernameNotFoundException("Invalid username or password.");
     }
-    return new org.springframework.security.core.userdetails.User(userEntity.getUsername(), userEntity
-        .getPassword(), getAuthority(userEntity));
+    return new org.springframework.security.core.userdetails.User(userEntity.getUsername(),
+        userEntity
+            .getPassword(), getAuthority(userEntity));
   }
 
   private Set<SimpleGrantedAuthority> getAuthority(UserEntity userEntity) {
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
   public void update(int id, String role) {
 
     Optional<UserEntity> optional = userRepository.findById(id);
-    if(optional.isPresent()) {
+    if (optional.isPresent()) {
       UserEntity entity = optional.get();
       entity.setRole(role);
     }

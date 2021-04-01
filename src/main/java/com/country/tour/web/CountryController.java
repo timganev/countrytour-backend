@@ -60,14 +60,14 @@ public class CountryController {
 
     validationService.validateTour(code, budget, budgetCountry, currency);
 
-      code = code.toUpperCase();
-      currency = currency.toUpperCase();
-      TourRequestDTO request = new TourRequestDTO(code, budget, budgetCountry, currency);
+    code = code.toUpperCase();
+    currency = currency.toUpperCase();
+    TourRequestDTO request = new TourRequestDTO(code, budget, budgetCountry, currency);
 
-      TourResponceDTO result = countryService.calculateTour(request);
+    TourResponceDTO result = countryService.calculateTour(request);
 
-      return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
-          .body(result);
+    return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+        .body(result);
 
   }
 
